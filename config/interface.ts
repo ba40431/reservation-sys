@@ -117,5 +117,11 @@ interface Booking {
 
 export {
     UserConfig,
-    RestaurantConfig
+    RestaurantConfig,
+    Config,
+    Login,
+    Response,
+    SaveSeatsResponse,
+    SaveSeats,
+    Booking
 }

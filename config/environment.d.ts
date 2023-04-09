@@ -6,10 +6,15 @@ declare global {
 				GA: string
 				GA_9PQXQP3QD6: string
 				STORE_ID: string
-				PEOPLE_COUNT: string
+				PEOPLE_COUNT: number
 				MEAL_PERIOD: string
 				MEAL_DATE: string
 				MEAL_TIME: string
+				LOGIN_API: string
+				SAVE_SEATS_API: string
+				SAVE_SAETA_API: string
+				BOOKINGS_API: string
+				BOOKING_API: string
       }
     }
   }

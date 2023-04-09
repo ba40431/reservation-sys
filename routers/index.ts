@@ -1,7 +1,9 @@
 import  express, { Router, Request, Response, NextFunction } from 'express'
 import { TestRouter } from './module/test'
+import { ReservationRouter } from './module/reservation'
 
 const testRouter = new TestRouter()
+const reservationRouter = new ReservationRouter()
 
 export class IndexRouter {
   router: Router
@@ -11,6 +13,7 @@ export class IndexRouter {
   }
 
   initializeRoutes() {
-    this.router.use(testRouter.router)
+    this.router.use('/test', testRouter.router)
+    this.router.use('/reservation', reservationRouter.router)
   }
 }
