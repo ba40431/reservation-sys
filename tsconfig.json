@@ -6,7 +6,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "dist" // 將編譯過後的js檔放到dist資料夾中
+    "outDir": "dist", // 將編譯過後的js檔放到dist資料夾中
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
   },
   // "include": [/* 需要编译的文件 */ "src/**/*.ts"],
   // "exclude": [/* 编译需要排除的文件 */ "node_modules/**"]

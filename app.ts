@@ -1,5 +1,10 @@
 import  express, { Express, Request, Response } from 'express'
 import { IndexRouter } from './routers/index'
+import dotenv from 'dotenv'
+
+// dotenv.config({path: './config/.env'})
+
+// console.log(process.env.PEOPLE_COUNT)
 
 const PORT = 5000
 
