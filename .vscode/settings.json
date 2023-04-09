@@ -1,0 +1,77 @@
+{
+    "workbench.statusBar.visible": true,
+    "workbench.activityBar.visible": true,
+    "editor.minimap.enabled": false,
+    "editor.wordWrap": "on",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.tabSize": 2,
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.donotShowInfoMsg": true,
+    "workbench.colorTheme": "Rainier",
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "cSpell.userWords": ["body", "body parser", "exphbs", "parser"],
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "launch": {
+        "configurations": [],
+        "compounds": []
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "vetur.validation.template": false,
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.columnSelection": false,
+    "editor.multiCursorModifier": "alt",
+    "bracket-pair-colorizer-2.colors": ["Gold", "Orchid", "LightSkyBlue"],
+    "bracket-pair-colorizer-2.activeScopeCSS": ["borderStyle : solid", "borderWidth : 1px", "borderColor : {color}", "opacity: 0.5"],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "files.trimFinalNewlines": true,
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+    "typescript.format.insertSpaceAfterConstructor": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+    "prettier.enable": true,
+    "vetur.format.defaultFormatter.js": "none",
+    "prettier.requireConfig": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "editor.bracketPairColorization.enabled": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "files.insertFinalNewline": true,
+    "standard.autoFixOnSave": true,
+    "editor.defaultFormatter": "numso.prettier-standard-vscode",
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "html.format.indentInnerHtml": true,
+    "html.format.indentHandlebars": true,
+    "html.format.endWithNewline": true,
+    "tabnine.experimentalAutoImports": true,
+    "sqltools.queryParams.enableReplace": true,
+    "python.formatting.provider": "black",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.profiles.osx": {
+        "zsh": {
+        "path": "/bin/zsh"
+        }
+    },
+    "terminal.integrated.fontSize": 13,
+    "bracket-pair-colorizer-2.depreciation-notice": false,
+    "editor.formatOnSave": true,
+    "prettier.documentSelectors": [
+        "*.prettierrc"
+    ]
+  }
