@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import { response } from 'express'
 import { global } from '../config/environment'
 
-dotenv.config({path: '../config/.env'})
+dotenv.config({path: './config/.env'})
 
 const userConfig: UserConfig = {
   account: process.env.ACCOUNT,
@@ -53,13 +53,17 @@ class PrivateReservationService {
 
   async getToken() {
     try {
-      const response = await axios.post<Response>(process.env.LOGIN_API, userConfig)
+      const payload = {
+        act: userConfig.account,
+        pwd: userConfig.password
+      }
+      const response = await axios.post<Response>(process.env.LOGIN_API, payload)
       const { data } = response
       if (data.statusCode !== 1000) {
         return data.result.msg
       }
       const token = data.result.customerLoginResp.token
-      // return token
+      return token
     } catch (error) {
       console.log(error)
     }
