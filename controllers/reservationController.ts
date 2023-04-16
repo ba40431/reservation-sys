@@ -7,7 +7,11 @@ const reservationService = ReservationService.getInstance()
 export class ReservationController {
   async getToken(request: Request, response: Response, next: NextFunction) {
 		try {
-			const result = await reservationService.getToken()
+			const token = await reservationService.getToken()
+			if(token === ''){
+				response.send('getToken 發生錯誤')
+			}
+			const result = await reservationService.getSaveSeats(token)
       response.send(result)
 		}catch(error) {
 			console.log(error)
