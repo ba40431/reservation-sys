@@ -100,26 +100,9 @@ class PrivateReservationService {
     }
   }
 
-  // 取得驗證序號
-  async getSaveSaeta(token: string) {
-    try {
-      const userConfig = this.userConfig
-      const response = await axios.post<Response>(process.env.SAVE_SAETA_API, { userConfig, token })
-      const { data } = response
-      if (data.statusCode !== 1000) {
-        console.log(data)
-        return data.result.msg
-      }
-      return data.result
-    }catch (error) {
-      console.log(`getSaveSaeta 發生錯誤 ${error}`)
-      return ''
-    }
-  }
-
   // 立即訂位
   async getSaveSeats(token: string): Promise<string> {
-    const saveSeats = {
+    const requestData = {
       storeId: restaurantConfig.storeId,
       peopleCount: Number(restaurantConfig.peopleCount),
       mealPeriod: restaurantConfig.mealPeriod,
@@ -141,7 +124,7 @@ class PrivateReservationService {
         url: process.env.SAVE_SEATS_API,
         method: 'post',
         headers: { ...headers, ...header},
-        data: saveSeats
+        data: requestData
       })
 
       const { data } = response
@@ -154,6 +137,61 @@ class PrivateReservationService {
       return ''
     }
 
+  }
+
+  async saveBooking(token: string): Promise<string> {
+    const requestData = {
+      storeId: restaurantConfig.storeId,
+      mealPeriod: restaurantConfig.mealPeriod,
+      mealDate: restaurantConfig.mealDate,
+      mealTime: restaurantConfig.mealTime,
+      mealPurpose: "",
+      mealSeq: mealSeqMap.get(restaurantConfig.mealTime),
+      special: 0,
+      childSeat: 0,
+      adult: Number(restaurantConfig.peopleCount),
+      child: 0,
+      chargeList: [
+        {
+          seq:   201,
+          count: Number(restaurantConfig.peopleCount)
+        },
+        {
+          seq:   202,
+          count: 0
+        }
+      ],
+      storeCode: "TGBQ",
+      redirectType: "iEat_card",
+      domain: "https://www.feastogether.com.tw",
+      pathFir: "booking",
+      pathSec: "result",
+      yuuu: "892389djdj883831445"
+    }
+
+    const header = {
+      "act": userConfig.account,
+      "Cookie": `_ga=${config.ga}; _ga_9PQXQP3QD6=${config.ga_9PQXQP3QD6}`,
+      "authorization": `Bearer ${token}`
+    }
+    try {
+      const response = await axios<Response>({
+        url: process.env.BOOKING_API,
+        method: 'post',
+        headers: { ...headers, ...header},
+        data: requestData
+      })
+
+      const { data } = response
+      if (data.statusCode !== 1000) {
+        return data.result.msg
+      }
+      console.log(data.result)
+      return data.message
+    }catch (error) {
+      console.log(`saveBooking 發生錯誤 ${error}`)
+      return ''
+    }
   }
 }
 
