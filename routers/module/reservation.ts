@@ -11,6 +11,6 @@ export class ReservationRouter {
   }
 
   initializeRoutes() {
-    this.router.get('/token', reservationController.getToken)
+    this.router.get('/booking', reservationController.getBooking)
   }
 }

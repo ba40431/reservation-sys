@@ -1,10 +1,5 @@
 import  express, { Express, Request, Response } from 'express'
 import { IndexRouter } from './routers/index'
-import dotenv from 'dotenv'
-
-// dotenv.config({path: './config/.env'})
-
-// console.log(process.env.PEOPLE_COUNT)
 
 const PORT = 5000
 
@@ -20,7 +15,6 @@ app.get('/alive', (req, res, next) => {
 })
 
 app.use(indexRouter.router)
-
 
 app.listen(PORT, () => {
   console.log(`server is running on http://localhost:${PORT}`)}
