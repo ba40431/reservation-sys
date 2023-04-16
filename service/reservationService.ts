@@ -42,6 +42,26 @@ const mealSeqMap: Map<string, number> = new Map([
   ["18:30", 4],
 ])
 
+const headers = {
+  "content-type": "application/json",
+  "accept": "application/json",
+  "authority": "www.feastogether.com.tw",
+  "scheme": "https",
+  "accept-language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+  "accept-encoding": "gzip, deflate, br",
+  "cache-control": "no-cache",
+  "origin": "https://www.feastogether.com.tw",
+  "pragma": "no-cache",
+  "referer": "https://www.feastogether.com.tw/booking/Kaifun/search",
+  "sec-ch-ua": `"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"`,
+  "sec-ch-ua-mobile": "?1",
+  "sec-ch-ua-platform": `"Android"`,
+  "sec-fetch-dest": "empty",
+  "sec-fetch-mode": "cors",
+  "sec-fetch-site": "same-origin",
+  "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36"
+}
+
 class PrivateReservationService {
   message: string
   userConfig: UserConfig
@@ -51,22 +71,89 @@ class PrivateReservationService {
     this.userConfig = userConfig
   }
 
-  async getToken() {
+  async getToken(): Promise<string> {
     try {
       const payload = {
         act: userConfig.account,
         pwd: userConfig.password
       }
-      const response = await axios.post<Response>(process.env.LOGIN_API, payload)
+      const header = {
+        "act": userConfig.account,
+        "Cookie": `_ga=${config.ga}; _ga_9PQXQP3QD6=${config.ga_9PQXQP3QD6}`
+      }
+      const response = await axios<Response>({
+        url: process.env.LOGIN_API,
+        method: 'post',
+        headers: { ...headers, ...header},
+        data: payload
+      })
       const { data } = response
       if (data.statusCode !== 1000) {
-        return data.result.msg
+        console.log(data.result.msg)
+        return ''
       }
       const token = data.result.customerLoginResp.token
       return token
     } catch (error) {
-      console.log(error)
+      console.log(`getToken 發生錯誤 ${error}`)
+      return ''
     }
+  }
+
+  // 取得驗證序號
+  async getSaveSaeta(token: string) {
+    try {
+      const userConfig = this.userConfig
+      const response = await axios.post<Response>(process.env.SAVE_SAETA_API, { userConfig, token })
+      const { data } = response
+      if (data.statusCode !== 1000) {
+        console.log(data)
+        return data.result.msg
+      }
+      return data.result
+    }catch (error) {
+      console.log(`getSaveSaeta 發生錯誤 ${error}`)
+      return ''
+    }
+  }
+
+  // 立即訂位
+  async getSaveSeats(token: string): Promise<string> {
+    const saveSeats = {
+      storeId: restaurantConfig.storeId,
+      peopleCount: Number(restaurantConfig.peopleCount),
+      mealPeriod: restaurantConfig.mealPeriod,
+      mealDate: restaurantConfig.mealDate,
+      mealTime: restaurantConfig.mealTime,
+      mealSeq: mealSeqMap.get(restaurantConfig.mealTime),
+      zked: "1j6ul4y94ejru6xk7vu4vu4", // hard-coded for now, as it's commented out in the original code
+      scgVerifyStr: "",
+      svgCode: null
+    }
+
+    const header = {
+      "act": userConfig.account,
+      "Cookie": `_ga=${config.ga}; _ga_9PQXQP3QD6=${config.ga_9PQXQP3QD6}`,
+      "authorization": `Bearer ${token}`
+    }
+    try {
+      const response = await axios<Response>({
+        url: process.env.SAVE_SEATS_API,
+        method: 'post',
+        headers: { ...headers, ...header},
+        data: saveSeats
+      })
+
+      const { data } = response
+      if (data.statusCode !== 1000) {
+        return data.result.msg
+      }
+      return data.result.expirationTime
+    }catch (error) {
+      console.log(`getSaveSeats 發生錯誤 ${error}`)
+      return ''
+    }
+
   }
 }
 
