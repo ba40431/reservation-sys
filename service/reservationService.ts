@@ -26,7 +26,7 @@ const config: Config = {
   password: process.env.PASSWORD,
   ga: process.env.GA,
   ga_9PQXQP3QD6: process.env.GA_9PQXQP3QD6,
-  storeId: process.env.PASSWORD,
+  storeId: process.env.STORE_ID,
   peopleCount: process.env.PEOPLE_COUNT,
 	mealPeriod: process.env.MEAL_PERIOD,
   mealDate: process.env.MEAL_DATE,
@@ -184,7 +184,7 @@ class PrivateReservationService {
 
       const { data } = response
       if (data.statusCode !== 1000) {
-        return data.result.msg
+        return `${requestData.storeId} ${data.result.msg}`
       }
       console.log(data.result)
       return data.message
